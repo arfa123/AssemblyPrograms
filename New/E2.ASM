@@ -1,0 +1,17 @@
+.MODEL SMALL
+.DATA
+	Q EQU 9
+	
+	Y DB q
+	z db 89
+X EQU this byte
+	t db 60
+.CODE
+	MOV AX,@DATA
+	MOV DS,AX
+	MOV BX,OFFSET Y
+	MOV AL,Y
+	ADD AL,X
+	MOV AH,4CH
+	INT 21H
+END

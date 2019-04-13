@@ -1,0 +1,31 @@
+.MODEL SMALL
+.STACK 32H
+.DATA
+	NM DB 7,5,6,3,1
+.CODE
+	MOV AX,@DATA
+	MOV DS,AX
+	MOV BX,OFFSET NM
+	MOV CX,4
+	MOV AH,0
+	L1:
+		MOV SI,1
+		PUSH CX
+		L2:
+			MOV AL,[BX]
+			CMP AL,[BX+SI]
+			JB EXT
+			PUSH AX
+			MOV AL,[BX+SI]
+			MOV [BX],AL
+			POP AX
+			MOV [BX+SI],AL
+			EXT:
+				INC SI
+				LOOP L2
+				INC BX
+				POP CX
+				LOOP L1
+				MOV AH,4CH
+				INT 21H
+END
